@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Plex Services Sample Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6 max-w-4xl">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Simple Plex Services Sample Form</h1>
+        <form action="mailto:support@medikonia.com?subject=" class="bg-white p-6 rounded-lg shadow-md" onsubmit="setSubject(event)">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="service_id" class="block text-sm font-medium text-gray-700">Service ID</label>
+                    <select id="service_id" name="Service ID" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option value="">Select Service ID</option>
+                        <option value="SPCKB-PS-72-1">SPCKB-PS-72-1</option>
+                        <option value="SPCKA-PS-16-1">SPCKA-PS-16-1</option>
+                        <option value="SPCKA-PS-16-2">SPCKA-PS-16-2</option>
+                        <option value="SPCKA-PS-16-3">SPCKA-PS-16-3</option>
+                        <option value="SPCKA-PS-16-4">SPCKA-PS-16-4</option>
+                        <option value="SPCKC-PS-32-1">SPCKC-PS-32-1</option>
+                        <option value="SPCKC-PS-32-2">SPCKC-PS-32-2</option>
+                        <option value="SPCKC-PS-32-3">SPCKC-PS-32-3</option>
+                        <option value="SPCKC-PS-32-4">SPCKC-PS-32-4</option>
+                        <option value="SPCKE-PS-32-5">SPCKE-PS-32-5</option>
+                        <option value="SPCKE-PS-32-6">SPCKE-PS-32-6</option>
+                        <option value="SPCKE-PS-32-7">SPCKE-PS-32-7</option>
+                        <option value="SPCKE-PS-32-8">SPCKE-PS-32-8</option>
+                        <option value="SPCK-PANEL-CUSTOM">SPCK-PANEL-CUSTOM</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input type="text" id="phone" name="Phone Number" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="Email" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="surname" class="block text-sm font-medium text-gray-700">Surname</label>
+                    <input type="text" id="surname" name="Surname" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="given_name" class="block text-sm font-medium text-gray-700">Given Name</label>
+                    <input type="text" id="given_name" name="Given Name" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="pi" class="block text-sm font-medium text-gray-700">Principal Investigator</label>
+                    <input type="text" id="pi" name="Principal Investigator" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="institute" class="block text-sm font-medium text-gray-700">Institute</label>
+                    <select id="institute" name="Institute" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option value="">Select Institute</option>
+                        <option value="HKU">HKU</option>
+                        <option value="HKUST">HKUST</option>
+                        <option value="CUHK">CUHK</option>
+                        <option value="HKBU">HKBU</option>
+                        <option value="POLYU">POLYU</option>
+                        <option value="CITYU">CITYU</option>
+                        <option value="EDU">EDU</option>
+                        <option value="Others">Others (Please specify)</option>
+                    </select>
+                    <input type="text" id="institute_other" name="Institute_Other" placeholder="Specify if Others" class="mt-2 block w-full border border-gray-300 rounded-md p-2 hidden">
+                </div>
+                <div>
+                    <label for="lab_address" class="block text-sm font-medium text-gray-700">Lab Address</label>
+                    <input type="text" id="lab_address" name="Lab Address" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div>
+                    <label for="sales_rep" class="block text-sm font-medium text-gray-700">Sales Representative</label>
+                    <select id="sales_rep" name="Sales Representative" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option value="">Select Sales Representative</option>
+                        <option value="Yanny MAN">Yanny MAN</option>
+                        <option value="Allen HU">Allen HU</option>
+                        <option value="Hasily LIU">Hasily LIU</option>
+                        <option value="Leo DU">Leo DU</option>
+                        <option value="Joe LAI">Joe LAI</option>
+                        <option value="Leon LI">Leon LI</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Samples Information</h2>
+            <div class="overflow-x-auto">
+                <table id="samplesTable" class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="bg-blue-100">
+                            <th class="py-2 px-4 border">Target of Interest</th>
+                            <th class="py-2 px-4 border">Sample Species</th>
+                            <th class="py-2 px-4 border">Sample Type</th>
+                            <th class="py-2 px-4 border">Sample Quantity</th>
+                            <th class="py-2 px-4 border">Cartridge of Interest</th>
+                            <th class="py-2 px-4 border">Cartridge Cat.No.</th>
+                            <th class="py-2 px-4 border">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border"><input type="text" name="Target1" class="w-full border rounded p-1"></td>
+                            <td class="py-2 px-4 border">
+                                <select name="Species1" class="w-full border rounded p-1">
+                                    <option value="Human">Human</option>
+                                    <option value="Mouse">Mouse</option>
+                                    <option value="Rat">Rat</option>
+                                    <option value="Viral Titer">Viral Titer</option>
+                                    <option value="Non-human Primate">Non-human Primate</option>
+                                    <option value="Impurity Testing">Impurity Testing</option>
+                                </select>
+                            </td>
+                            <td class="py-2 px-4 border">
+                                <select name="Type1" class="w-full border rounded p-1" onchange="toggleOtherInput(this, 'type_other1')">
+                                    <option value="Plasma">Plasma</option>
+                                    <option value="Serum">Serum</option>
+                                    <option value="Cell Supernatant">Cell Supernatant</option>
+                                    <option value="Others">Others (Please specify)</option>
+                                </select>
+                                <input type="text" name="Type_Other1" id="type_other1" placeholder="Specify if Others" class="mt-2 w-full border rounded p-1 hidden">
+                            </td>
+                            <td class="py-2 px-4 border"><input type="text" name="Quantity1" class="w-full border rounded p-1"></td>
+                            <td class="py-2 px-4 border"><input type="text" name="Cartridge1" class="w-full border rounded p-1"></td>
+                            <td class="py-2 px-4 border"><input type="text" name="CatNo1" class="w-full border rounded p-1"></td>
+                            <td class="py-2 px-4 border"><button type="button" onclick="addRow()" class="bg-blue-500 text-white px-2 py-1 rounded">Add Row</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-semibold text-blue-600 mt-6 mb-4">Evaluation Form</h2>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label for="config" class="block text-sm font-medium text-gray-700">Is there a particular configuration that is necessary for the workflow?</label>
+                    <input type="text" id="config" name="Configuration" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="conc_range" class="block text-sm font-medium text-gray-700">Expected Concentration Range</label>
+                        <input type="text" id="conc_range" name="Concentration Range" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                    <div>
+                        <label for="cv" class="block text-sm font-medium text-gray-700">Current CV%</label>
+                        <input type="text" id="cv" name="Current CV%" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="recovery" class="block text-sm font-medium text-gray-700">Expected Recovery %</label>
+                        <input type="text" id="recovery" name="Expected Recovery %" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                    <div>
+                        <label for="lloq" class="block text-sm font-medium text-gray-700">Current LLOQ</label>
+                        <input type="text" id="lloq" name="Current LLOQ" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                </div>
+                <div>
+                    <label for="endogenous" class="block text-sm font-medium text-gray-700">What are endogenous levels of the targets?</label>
+                    <textarea id="endogenous" name="Endogenous Levels" class="mt-1 block w-full border border-gray-300 rounded-md p-2 h-24"></textarea>
+                </div>
+                <div>
+                    <label for="prep" class="block text-sm font-medium text-gray-700">Sample Preparation Method</label>
+                    <textarea id="prep" name="Sample Preparation Method" class="mt-1 block w-full border border-gray-300 rounded-md p-2 h-24"></textarea>
+                </div>
+                <div>
+                    <label for="dilution" class="block text-sm font-medium text-gray-700">Current Dilution Factor</label>
+                    <textarea id="dilution" name="Dilution Factor" class="mt-1 block w-full border border-gray-300 rounded-md p-2 h-24"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Important Aspects of Simple Plex</label>
+                    <div class="mt-2 space-y-2">
+                        <label><input type="checkbox" name="Aspects" value="hands free workflow" class="mr-2">Hands free workflow</label>
+                        <label><input type="checkbox" name="Aspects" value="low sample volume" class="mr-2">Low sample volume</label>
+                        <label><input type="checkbox" name="Aspects" value="multianalyte detection" class="mr-2">Multianalyte detection</label>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700">Send</button>
+            </div>
+        </form>
+        <footer class="mt-8 text-center text-gray-600">
+            <p>Medikonia Limited<br>
+            Unit 1005-1006, 10/F, Tower I, Grand Century Place,<br>
+            193 Prince Edward Road West, Mong Kok, Kowloon, Hong Kong</p>
+            <p>Tel: 2866 8995 | Email: cs@medikonia.com | Web: <a href="http://www.medikonia.com" class="text-blue-600">www.medikonia.com</a></p>
+        </footer>
+    </div>
+    <script>
+        const instituteSelect = document.getElementById('institute');
+        const instituteOther = document.getElementById('institute_other');
+        instituteSelect.addEventListener('change', () => {
+            instituteOther.classList.toggle('hidden', instituteSelect.value !== 'Others');
+        });
+
+        function toggleOtherInput(select, otherInputId) {
+            const otherInput = document.getElementById(otherInputId);
+            otherInput.classList.toggle('hidden', select.value !== 'Others');
+        }
+
+        let rowCount = 1;
+
+        function addRow() {
+            rowCount++;
+            const table = document.getElementById('samplesTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            newRow.innerHTML = `
+                <td class="py-2 px-4 border"><input type="text" name="Target${rowCount}" class="w-full border rounded p-1"></td>
+                <td class="py-2 px-4 border">
+                    <select name="Species${rowCount}" class="w-full border rounded p-1">
+                        <option value="Human">Human</option>
+                        <option value="Mouse">Mouse</option>
+                        <option value="Rat">Rat</option>
+                        <option value="Viral Titer">Viral Titer</option>
+                        <option value="Non-human Primate">Non-human Primate</option>
+                        <option value="Impurity Testing">Impurity Testing</option>
+                    </select>
+                </td>
+                <td class="py-2 px-4 border">
+                    <select name="Type${rowCount}" class="w-full border rounded p-1" onchange="toggleOtherInput(this, 'type_other${rowCount}')">
+                        <option value="Plasma">Plasma</option>
+                        <option value="Serum">Serum</option>
+                        <option value="Cell Supernatant">Cell Supernatant</option>
+                        <option value="Others">Others (Please specify)</option>
+                    </select>
+                    <input type="text" name="Type_Other${rowCount}" id="type_other${rowCount}" placeholder="Specify if Others" class="mt-2 w-full border rounded p-1 hidden">
+                </td>
+                <td class="py-2 px-4 border"><input type="text" name="Quantity${rowCount}" class="w-full border rounded p-1"></td>
+                <td class="py-2 px-4 border"><input type="text" name="Cartridge${rowCount}" class="w-full border rounded p-1"></td>
+                <td class="py-2 px-4 border"><input type="text" name="CatNo${rowCount}" class="w-full border rounded p-1"></td>
+                <td class="py-2 px-4 border"><button type="button" onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button></td>
+            `;
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            rowCount--;
+            const rows = document.getElementById('samplesTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const inputs = rows[i].getElementsByTagName('input');
+                const selects = rows[i].getElementsByTagName('select');
+                for (let j = 0; j < inputs.length; j++) {
+                    const name = inputs[j].name;
+                    if (name) inputs[j].name = name.replace(/\d+/, i + 1);
+                }
+                for (let j = 0; j < selects.length; j++) {
+                    const name = selects[j].name;
+                    if (name) selects[j].name = name.replace(/\d+/, i + 1);
+                }
+                const otherInput = rows[i].querySelector('input[id^="type_other"]');
+                if (otherInput) otherInput.id = `type_other${i + 1}`;
+            }
+            rowCount = rows.length;
+        }
+
+        function setSubject(event) {
+            const serviceId = document.getElementById('service_id').value;
+            if (serviceId) {
+                const subject = encodeURIComponent(`${serviceId} Services`);
+                window.location.href = `mailto:support@medikonia.com?subject=${subject}`;
+            }
+            event.preventDefault();
+            document.querySelector('form').submit();
+        }
+    </script>
+</body>
+</html>
