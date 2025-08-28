@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Plex Services Sample Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-select {
+            height: 38px;
+            padding: 0.5rem;
+        }
+        .option-text {
+            font-size: 0.875rem; /* Match the default font size of input fields like Sample Quantity */
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="container mx-auto p-6 max-w-4xl">
         <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Simple Plex Services Sample Form</h1>
-        <form action="mailto:support@medikonia.com?subject=" class="bg-white p-6 rounded-lg shadow-md" onsubmit="setSubject(event)">
+        <form id="sampleForm" class="bg-white p-6 rounded-lg shadow-md">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
                     <label for="service_id" class="block text-sm font-medium text-gray-700">Service ID</label>
@@ -89,47 +98,47 @@
                 <table id="samplesTable" class="min-w-full bg-white border border-gray-300">
                     <thead>
                         <tr class="bg-blue-100">
-                            <th class="py-2 px-4 border">Target of Interest</th>
-                            <th class="py-2 px-4 border">Sample Species</th>
-                            <th class="py-2 px-4 border">Sample Type</th>
-                            <th class="py-2 px-4 border">Sample Quantity</th>
-                            <th class="py-2 px-4 border">Cartridge of Interest</th>
-                            <th class="py-2 px-4 border">Cartridge Cat.No.</th>
-                            <th class="py-2 px-4 border">Action</th>
+                            <th class="py-2 px-4 border text-xs">Target of Interest</th>
+                            <th class="py-2 px-4 border text-xs">Sample Species</th>
+                            <th class="py-2 px-4 border text-xs">Sample Type</th>
+                            <th class="py-2 px-4 border text-xs">Sample Quantity</th>
+                            <th class="py-2 px-4 border text-xs">Cartridge of Interest</th>
+                            <th class="py-2 px-4 border text-xs">Cartridge Cat.No.</th>
+                            <th class="py-2 px-4 border text-xs">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="py-2 px-4 border"><input type="text" name="Target1" class="w-full border rounded p-1"></td>
                             <td class="py-2 px-4 border">
-                                <select name="Species1" class="w-full border rounded p-1">
-                                    <option value="Human">Human</option>
-                                    <option value="Mouse">Mouse</option>
-                                    <option value="Rat">Rat</option>
-                                    <option value="Viral Titer">Viral Titer</option>
-                                    <option value="Non-human Primate">Non-human Primate</option>
-                                    <option value="Impurity Testing">Impurity Testing</option>
+                                <select name="Species1" class="w-full border rounded p-1 custom-select">
+                                    <option value="Human" class="option-text">Human</option>
+                                    <option value="Mouse" class="option-text">Mouse</option>
+                                    <option value="Rat" class="option-text">Rat</option>
+                                    <option value="Viral Titer" class="option-text">Viral Titer</option>
+                                    <option value="Non-human Primate" class="option-text">Non-human Primate</option>
+                                    <option value="Impurity Testing" class="option-text">Impurity Testing</option>
                                 </select>
                             </td>
                             <td class="py-2 px-4 border">
-                                <select name="Type1" class="w-full border rounded p-1" onchange="toggleOtherInput(this, 'type_other1')">
-                                    <option value="Plasma">Plasma</option>
-                                    <option value="Serum">Serum</option>
-                                    <option value="Cell Supernatant">Cell Supernatant</option>
-                                    <option value="Others">Others (Please specify)</option>
+                                <select name="Type1" class="w-full border rounded p-1 custom-select" onchange="toggleOtherInput(this, 'type_other1')">
+                                    <option value="Plasma" class="option-text">Plasma</option>
+                                    <option value="Serum" class="option-text">Serum</option>
+                                    <option value="Cell Supernatant" class="option-text">Cell Supernatant</option>
+                                    <option value="Others" class="option-text">Others (Please specify)</option>
                                 </select>
                                 <input type="text" name="Type_Other1" id="type_other1" placeholder="Specify if Others" class="mt-2 w-full border rounded p-1 hidden">
                             </td>
                             <td class="py-2 px-4 border"><input type="text" name="Quantity1" class="w-full border rounded p-1"></td>
                             <td class="py-2 px-4 border"><input type="text" name="Cartridge1" class="w-full border rounded p-1"></td>
                             <td class="py-2 px-4 border"><input type="text" name="CatNo1" class="w-full border rounded p-1"></td>
-                            <td class="py-2 px-4 border"><button type="button" onclick="addRow()" class="bg-blue-500 text-white px-2 py-1 rounded">Add Row</button></td>
+                            <td class="py-2 px-4 border"><button type="button" onclick="addRow()" class="bg-blue-500 text-white px-2 py-1 rounded text-xs">Add Row</button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h2 class="text-2xl font-semibold text-blue-600 mt-6 mb-4">Evaluation Form</h2>
+            <h2 class="text-2xl font-semibold text-blue-600 mt-6 mb-4">Evaluation Part</h2>
             <div class="grid grid-cols-1 gap-4">
                 <div>
                     <label for="config" class="block text-sm font-medium text-gray-700">Is there a particular configuration that is necessary for the workflow?</label>
@@ -177,7 +186,7 @@
                 </div>
             </div>
             <div class="text-center mt-6">
-                <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700">Send</button>
+                <button type="button" onclick="saveForm()" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700">Save</button>
             </div>
         </form>
         <footer class="mt-8 text-center text-gray-600">
@@ -209,28 +218,28 @@
             newRow.innerHTML = `
                 <td class="py-2 px-4 border"><input type="text" name="Target${rowCount}" class="w-full border rounded p-1"></td>
                 <td class="py-2 px-4 border">
-                    <select name="Species${rowCount}" class="w-full border rounded p-1">
-                        <option value="Human">Human</option>
-                        <option value="Mouse">Mouse</option>
-                        <option value="Rat">Rat</option>
-                        <option value="Viral Titer">Viral Titer</option>
-                        <option value="Non-human Primate">Non-human Primate</option>
-                        <option value="Impurity Testing">Impurity Testing</option>
+                    <select name="Species${rowCount}" class="w-full border rounded p-1 custom-select">
+                        <option value="Human" class="option-text">Human</option>
+                        <option value="Mouse" class="option-text">Mouse</option>
+                        <option value="Rat" class="option-text">Rat</option>
+                        <option value="Viral Titer" class="option-text">Viral Titer</option>
+                        <option value="Non-human Primate" class="option-text">Non-human Primate</option>
+                        <option value="Impurity Testing" class="option-text">Impurity Testing</option>
                     </select>
                 </td>
                 <td class="py-2 px-4 border">
-                    <select name="Type${rowCount}" class="w-full border rounded p-1" onchange="toggleOtherInput(this, 'type_other${rowCount}')">
-                        <option value="Plasma">Plasma</option>
-                        <option value="Serum">Serum</option>
-                        <option value="Cell Supernatant">Cell Supernatant</option>
-                        <option value="Others">Others (Please specify)</option>
+                    <select name="Type${rowCount}" class="w-full border rounded p-1 custom-select" onchange="toggleOtherInput(this, 'type_other${rowCount}')">
+                        <option value="Plasma" class="option-text">Plasma</option>
+                        <option value="Serum" class="option-text">Serum</option>
+                        <option value="Cell Supernatant" class="option-text">Cell Supernatant</option>
+                        <option value="Others" class="option-text">Others (Please specify)</option>
                     </select>
                     <input type="text" name="Type_Other${rowCount}" id="type_other${rowCount}" placeholder="Specify if Others" class="mt-2 w-full border rounded p-1 hidden">
                 </td>
                 <td class="py-2 px-4 border"><input type="text" name="Quantity${rowCount}" class="w-full border rounded p-1"></td>
                 <td class="py-2 px-4 border"><input type="text" name="Cartridge${rowCount}" class="w-full border rounded p-1"></td>
                 <td class="py-2 px-4 border"><input type="text" name="CatNo${rowCount}" class="w-full border rounded p-1"></td>
-                <td class="py-2 px-4 border"><button type="button" onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button></td>
+                <td class="py-2 px-4 border"><button type="button" onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</button></td>
             `;
         }
 
@@ -256,15 +265,29 @@
             rowCount = rows.length;
         }
 
-        function setSubject(event) {
+        function saveForm() {
             const serviceId = document.getElementById('service_id').value;
-            if (serviceId) {
-                const subject = encodeURIComponent(`${serviceId} Services`);
-                window.location.href = `mailto:support@medikonia.com?subject=${subject}`;
-            }
-            event.preventDefault();
-            document.querySelector('form').submit();
+            const institute = document.getElementById('institute').value || document.getElementById('institute_other').value || '';
+            const givenName = document.getElementById('given_name').value || '';
+            const surname = document.getElementById('surname').value || '';
+            const fileName = `${serviceId}${institute}${givenName}${surname}`.replace(/ /g, '_');
+
+            // Convert to PDF
+            html2pdf().from(document.getElementById('sampleForm')).save(`${fileName}.pdf`);
+
+            // Convert to Excel
+            const wb = XLSX.utils.table_to_book(document.getElementById('sampleForm'));
+            XLSX.writeFile(wb, `${fileName}.xlsx`);
         }
+
+        // Include html2pdf and XLSX libraries
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        document.head.appendChild(script);
+
+        const xlsxScript = document.createElement('script');
+        xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+        document.head.appendChild(xlsxScript);
     </script>
 </body>
 </html>
